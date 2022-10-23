@@ -10,7 +10,7 @@ namespace RGWorkaholics
     {
         public const string PluginName = "RG Workaholics";
         public const string GUID = "com.bogus.RGWorkaholics";
-        public const string Version = "0.0.1";
+        public const string Version = "0.1.0";
 
         internal static new ManualLogSource Log;
 

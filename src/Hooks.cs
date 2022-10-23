@@ -14,18 +14,24 @@ namespace RGWorkaholics
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Game), nameof(Game.PushForwardCycle))]
-        private static void pushForwardCyclePre()
+        private static void PushForwardCyclePre()
         {
             if (Config.Enabled)
             {
                 Int32KeyDictionary<MapShiftData> assignments = Game.ActionCache._dicShiftAssignment;
                 Cycle cycle = Game.UserFile.Cycle;
-                foreach (KeyValuePair<int, MapShiftData> entry in assignments)
+                int nextIndex = Util.GetNextCycleIndex(cycle);
+                Dictionary<string, bool> enableStatus = Config.GetEnableStatus();
+                for (int i = 0; i < assignments.Count; i++)
                 {
-                    MapShiftData data = entry.value;
-                    foreach (ActorShiftData actorData in data._list)
+                    MapShiftData assignment = assignments[i];
+                    for (int j = 0; j < assignment._list.Count; j++)
                     {
-                        actorData._shifts[Util.getNextCycleIndex(cycle)] = true;
+                        ActorShiftData actorData = assignment._list[j];
+                        if (enableStatus[actorData.Name])
+                        {
+                            actorData._shifts[nextIndex] = true;
+                        }
                     }
                 }
             }
