@@ -17,12 +17,8 @@ namespace RGWorkaholics
             {
                 dayOfWeek = 6;
             }
-            Log.LogMessage($"day {dayOfWeek} tz {timezone}");
 
             int nextIndex = (dayOfWeek * 2) + timezone + 1;
-
-            Log.LogMessage($"next {nextIndex}");
-            Log.LogMessage("---");
 
             return nextIndex == 14 ? 0 : nextIndex;
         }
