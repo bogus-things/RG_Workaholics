@@ -5,12 +5,13 @@ using HarmonyLib;
 
 namespace RGWorkaholics
 {
+    [BepInProcess("RoomGirl")]
     [BepInPlugin(GUID, PluginName, Version)]
     public class RGWorkaholicsPlugin : BasePlugin
     {
         public const string PluginName = "RG Workaholics";
         public const string GUID = "com.bogus.RGWorkaholics";
-        public const string Version = "0.1.0";
+        public const string Version = "1.0.0";
 
         internal static new ManualLogSource Log;
 
