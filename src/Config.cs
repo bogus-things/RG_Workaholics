@@ -1,6 +1,6 @@
 ﻿using BepInEx.Configuration;
 using BepInEx.IL2CPP;
-using Il2CppSystem.Collections.Generic;
+using System.Collections.Generic;
 
 namespace RGWorkaholics
 {
@@ -13,7 +13,8 @@ namespace RGWorkaholics
         private const string SECTION_CLUB = "Club";
         private const string SECTION_CASINO = "Casino";
         private const string SECTION_NEET = "Living Room";
-
+        private const string SECTION_SHOP = "Shop";
+        private const string SECTION_INN = "Hot Spring Inn";
 
         private static ConfigEntry<bool> _enabled;
         internal static bool Enabled { get { return _enabled.Value; } }
@@ -66,6 +67,24 @@ namespace RGWorkaholics
         private static ConfigEntry<bool> _familyEnabled;
         internal static bool FamilyEnabled { get { return _familyEnabled.Value; } }
 
+        private static ConfigEntry<bool> _shopkeeperEnabled;
+        internal static bool ShopkeeperEnabled { get { return _shopkeeperEnabled.Value; } }
+
+        private static ConfigEntry<bool> _shopCustomerEnabled;
+        internal static bool ShopCustomerEnabled { get { return _shopCustomerEnabled.Value; } }
+
+        private static ConfigEntry<bool> _bumEnabled;
+        internal static bool BumEnabled { get { return _bumEnabled.Value; } }
+
+        private static ConfigEntry<bool> _leaderEnabled;
+        internal static bool LeaderEnabled { get { return _leaderEnabled.Value; } }
+
+        private static ConfigEntry<bool> _guest1Enabled;
+        internal static bool Guest1Enabled { get { return _guest1Enabled.Value; } }
+
+        private static ConfigEntry<bool> _guest2Enabled;
+        internal static bool Guest2Enabled { get { return _guest2Enabled.Value; } }
+
         internal static void Init(BasePlugin plugin)
         {
             _enabled = plugin.Config.Bind(SECTION_GENERAL, "Enabled", true, "If enabled, all male characters will be present at their jobs after a time change (they can still choose to go home later, though)");
@@ -91,33 +110,49 @@ namespace RGWorkaholics
             _customerEnabled = plugin.Config.Bind(SECTION_CASINO, "Customer", true, "Enable/disable overriding specific character's schedule");
 
             _familyEnabled = plugin.Config.Bind(SECTION_NEET, "Family", true, "Enable/disable overriding specific character's schedule");
+
+            _shopkeeperEnabled = plugin.Config.Bind(SECTION_SHOP, "Shopkeeper", true, "Enable/disable overriding specific character's schedule");
+            _shopCustomerEnabled = plugin.Config.Bind(SECTION_SHOP, "Customer", true, "Enable/disable overriding specific character's schedule");
+            _bumEnabled = plugin.Config.Bind(SECTION_SHOP, "Bum", true, "Enable/disable overriding specific character's schedule");
+
+            _leaderEnabled = plugin.Config.Bind(SECTION_INN, "Shopkeeper", true, "Enable/disable overriding specific character's schedule");
+            _guest1Enabled = plugin.Config.Bind(SECTION_INN, "Guest 1", true, "Enable/disable overriding specific character's schedule");
+            _guest2Enabled = plugin.Config.Bind(SECTION_INN, "Guest 2", true, "Enable/disable overriding specific character's schedule");
         }
 
         internal static Dictionary<string, bool> GetEnableStatus()
         {
             Dictionary<string, bool> status = new Dictionary<string, bool>();
 
-            status.Add("上司", BossEnabled);
-            status.Add("同僚", ColleagueEnabled);
-            status.Add("清掃員", OfficeJanitorEnabled);
+            status.Add("ill_rg_Default_male00", BossEnabled);
+            status.Add("ill_rg_Default_male01", ColleagueEnabled);
+            status.Add("ill_rg_Default_male02", OfficeJanitorEnabled);
 
-            status.Add("医師", DoctorEnabled);
-            status.Add("通院患者", OutpatientEnabled);
-            status.Add("入院患者", InpatientEnabled);
+            status.Add("ill_rg_Default_male03", DoctorEnabled);
+            status.Add("ill_rg_Default_male04", OutpatientEnabled);
+            status.Add("ill_rg_Default_male05", InpatientEnabled);
 
-            status.Add("講師", TeacherEnabled);
-            status.Add("学生", StudentEnabled);
-            status.Add("用務員", SemiJanitorEnabled);
+            status.Add("ill_rg_Default_male06", TeacherEnabled);
+            status.Add("ill_rg_Default_male07", StudentEnabled);
+            status.Add("ill_rg_Default_male08", SemiJanitorEnabled);
 
-            status.Add("マネージャー", ClubManagerEnabled);
-            status.Add("オーナー", OwnerEnabled);
-            status.Add("ファン", FanEnabled);
+            status.Add("ill_rg_Default_male09", ClubManagerEnabled);
+            status.Add("ill_rg_Default_male10", OwnerEnabled);
+            status.Add("ill_rg_Default_male11", FanEnabled);
 
-            status.Add("ディーラー", DealerEnabled);
-            status.Add("支配人", CasinoManagerEnabled);
-            status.Add("客", CustomerEnabled);
+            status.Add("ill_rg_Default_male12", DealerEnabled);
+            status.Add("ill_rg_Default_male13", CasinoManagerEnabled);
+            status.Add("ill_rg_Default_male14", CustomerEnabled);
 
-            status.Add("家族", FamilyEnabled);
+            status.Add("ill_rg_Default_male15", FamilyEnabled);
+
+            status.Add("ill_rg_Default_male16", ShopkeeperEnabled);
+            status.Add("ill_rg_Default_male17", ShopCustomerEnabled);
+            status.Add("ill_rg_Default_male18", BumEnabled);
+
+            status.Add("ill_rg_Default_male19", LeaderEnabled);
+            status.Add("ill_rg_Default_male20", Guest1Enabled);
+            status.Add("ill_rg_Default_male21", Guest2Enabled);
 
             return status;
         }

@@ -1,6 +1,6 @@
 ﻿using BepInEx.Logging;
 using HarmonyLib;
-using Il2CppSystem.Collections.Generic;
+using System.Collections.Generic;
 using Illusion.Collections.Generic.Optimized;
 using Manager;
 using RG.Scripts;
@@ -28,7 +28,7 @@ namespace RGWorkaholics
                     for (int j = 0; j < assignment._list.Count; j++)
                     {
                         ActorShiftData actorData = assignment._list[j];
-                        if (enableStatus[actorData.Name])
+                        if (enableStatus.TryGetValue(actorData.File, out bool enabled) && enabled)
                         {
                             actorData._shifts[nextIndex] = true;
                         }
